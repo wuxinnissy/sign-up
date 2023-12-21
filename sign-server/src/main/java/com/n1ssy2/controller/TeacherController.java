@@ -32,6 +32,7 @@ import java.util.Map;
 @RequestMapping("/teacher")
 @Slf4j
 @Api(tags = "教师端管理文档")
+@CrossOrigin(origins = "*")//跨域请求
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;

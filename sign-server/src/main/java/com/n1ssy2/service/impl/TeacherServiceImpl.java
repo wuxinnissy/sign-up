@@ -1,17 +1,21 @@
 package com.n1ssy2.service.impl;
 
 import com.n1ssy2.constant.MessageConstant;
+import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.TeacherDTO;
+import com.n1ssy2.entity.CheckinCase;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
 import com.n1ssy2.exception.AccountNotFoundException;
 import com.n1ssy2.mapper.TeacherMapper;
 import com.n1ssy2.service.TeacherService;
+import com.n1ssy2.utils.RandomStr;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -61,5 +65,26 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Course> getCourseByTeacherId(String teacherId){
         List<Course> list = teacherMapper.getCourseByTeacherId(teacherId);
         return list;
+    }
+
+    /**
+     * 创建签到
+     * @param checkinCaseDTO
+     * @return
+     */
+    public String createCheckin(CheckinCaseDTO checkinCaseDTO){
+        //获取随机8位字符串作为签到码
+        String checkinNode = RandomStr.generateRandomStr();
+
+        CheckinCase checkinCase = new CheckinCase();
+        BeanUtils.copyProperties(checkinCaseDTO, checkinCase);
+
+        checkinCase.setCheckinNode(checkinNode);
+        checkinCase.setCreateTime(LocalDateTime.now());
+
+        teacherMapper.addCheckinCase(checkinCase);
+        teacherMapper.createCheckinRecord(checkinCase.getCheckinId());
+
+        return checkinNode;
     }
 }

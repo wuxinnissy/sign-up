@@ -47,3 +47,21 @@ CREATE TABLE course (
 );
 
 INSERT INTO sign_up.course (course_id, course_name, begin_time, end_time) VALUES ('001', '测试课程1', '2023-12-21 14:00:00', '2023-12-21 15:30:00');
+
+CREATE TABLE checkin_case (
+    checkin_id VARCHAR(20) PRIMARY KEY,
+    create_time DATETIME,
+    course_id VARCHAR(20),
+    teacher_id VARCHAR(20),
+    checkin_node VARCHAR(8),
+    UNIQUE(checkin_node),
+    CONSTRAINT checkin_node_length CHECK (LENGTH(checkin_node)=8)
+);
+
+CREATE TABLE checkin_record (
+    checkin_id INT AUTO_INCREMENT,
+    student_id VARCHAR(20),
+    checkin_time DATETIME,
+    checkin_status SMALLINT,
+    PRIMARY KEY (checkin_id, student_id)
+);

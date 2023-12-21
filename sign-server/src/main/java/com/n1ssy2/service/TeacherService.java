@@ -1,5 +1,6 @@
 package com.n1ssy2.service;
 
+import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.TeacherDTO;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
@@ -29,4 +30,11 @@ public interface TeacherService {
      * @return
      */
     List<Course> getCourseByTeacherId(String teacherId);
+
+    /**
+     * 创建签到
+     * @param checkinCaseDTO
+     * @return
+     */
+    String createCheckin(CheckinCaseDTO checkinCaseDTO);
 }

@@ -1,6 +1,7 @@
 package com.n1ssy2.controller;
 
 import com.n1ssy2.constant.JwtClaimsConstant;
+import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.TeacherDTO;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
@@ -81,5 +82,18 @@ public class TeacherController {
         log.info("课表查询，教师id：{}", teacherId);
         List<Course> list = teacherService.getCourseByTeacherId(teacherId);
         return Result.success(list);
+    }
+
+    /**
+     * 创建签到
+     * @param checkinCaseDTO
+     * @return
+     */
+    @PostMapping("/checkin/create")
+    @ApiOperation("教师创建签到")
+    public Result<String> createCheckin(@RequestBody CheckinCaseDTO checkinCaseDTO){
+        log.info("教师创建签到: {}", checkinCaseDTO);
+        String checkinCode = teacherService.createCheckin(checkinCaseDTO);
+        return Result.success(checkinCode);
     }
 }

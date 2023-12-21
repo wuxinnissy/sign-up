@@ -1,7 +1,9 @@
 package com.n1ssy2.mapper;
 
+import com.n1ssy2.entity.CheckinCase;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -32,4 +34,11 @@ public interface TeacherMapper {
      * @return
      */
     List<Course> getCourseByTeacherId(String teacherId);
+
+    /**
+     * 创建签到实例
+     * @param checkinCase
+     */
+    @Insert("insert into checkin_case(checkin_id)")
+    void addCheckinCase(CheckinCase checkinCase);
 }

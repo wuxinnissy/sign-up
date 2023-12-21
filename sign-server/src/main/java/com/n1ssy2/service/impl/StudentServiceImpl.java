@@ -1,6 +1,7 @@
 package com.n1ssy2.service.impl;
 
 import com.n1ssy2.constant.MessageConstant;
+import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.StudentDTO;
 import com.n1ssy2.entity.Student;
 import com.n1ssy2.exception.AccountNotFoundException;

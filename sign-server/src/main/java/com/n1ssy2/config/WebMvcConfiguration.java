@@ -11,7 +11,8 @@ package com.n1ssy2.config;
  */
 
 import com.n1ssy2.JacksonObjectMapper;
-import com.n1ssy2.interceptor.JwtTokenAdminInterceptor;
+import com.n1ssy2.interceptor.JwtTokenStudentInterceptor;
+import com.n1ssy2.interceptor.JwtTokenTeacherInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -38,7 +39,9 @@ import java.util.List;
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Autowired
-    private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+    private JwtTokenTeacherInterceptor jwtTokenTeacherInterceptor;
+    @Autowired
+    private JwtTokenStudentInterceptor jwtTokenStudentInterceptor;
 
     /**
      * 注册自定义拦截器
@@ -47,9 +50,12 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      */
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册自定义拦截器...");
-        registry.addInterceptor(jwtTokenAdminInterceptor)
+        registry.addInterceptor(jwtTokenTeacherInterceptor)
                 .addPathPatterns("/teacher/**")
                 .excludePathPatterns("/teacher/login");
+        registry.addInterceptor(jwtTokenStudentInterceptor)
+                .addPathPatterns("/student/**")
+                .excludePathPatterns("/student/login");
     }
 
     /**

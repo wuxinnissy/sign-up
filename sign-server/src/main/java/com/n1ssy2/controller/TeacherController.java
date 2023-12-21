@@ -37,14 +37,16 @@ public class TeacherController {
     private TeacherService teacherService;
     @Autowired
     private JwtProperties jwtProperties;
+
     /**
      * 登录
+     *
      * @param teacherDTO
      * @return
      */
     @PostMapping("/login")
     @ApiOperation("登录")
-    public Result<TeacherLoginVO> login(@RequestBody TeacherDTO teacherDTO){
+    public Result<TeacherLoginVO> login(@RequestBody TeacherDTO teacherDTO) {
         log.info("教师登录：{}", teacherDTO);
 
         Teacher teacher = teacherService.login(teacherDTO);
@@ -68,13 +70,14 @@ public class TeacherController {
 
     /**
      * 查询课表
+     *
      * @param teacherId
      * @return
      */
-    @GetMapping ("/schedule")
+    @GetMapping("/schedule")
     @ApiOperation("查询课表")
-    public Result<List<Course>> getCourseByTeacherId(String teacherId){
-        log.info("课表查询，教师id：{}",teacherId);
+    public Result<List<Course>> getCourseByTeacherId(String teacherId) {
+        log.info("课表查询，教师id：{}", teacherId);
         List<Course> list = teacherService.getCourseByTeacherId(teacherId);
         return Result.success(list);
     }

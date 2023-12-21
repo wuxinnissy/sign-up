@@ -2,6 +2,7 @@ package com.n1ssy2.service.impl;
 
 import com.n1ssy2.constant.MessageConstant;
 import com.n1ssy2.dto.TeacherDTO;
+import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
 import com.n1ssy2.exception.AccountNotFoundException;
 import com.n1ssy2.mapper.TeacherMapper;
@@ -10,6 +11,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 /**
  * ClassName: TeacherServiceImpl
@@ -50,4 +53,13 @@ public class TeacherServiceImpl implements TeacherService {
         return teacher;
     }
 
+    /**
+     * 查询课表
+     * @param teacherId
+     * @return
+     */
+    public List<Course> getCourseByTeacherId(String teacherId){
+        List<Course> list = teacherMapper.getCourseByTeacherId(teacherId);
+        return list;
+    }
 }

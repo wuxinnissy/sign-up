@@ -2,6 +2,7 @@ package com.n1ssy2.controller;
 
 import com.n1ssy2.constant.JwtClaimsConstant;
 import com.n1ssy2.dto.TeacherDTO;
+import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
 import com.n1ssy2.properties.JwtProperties;
 import com.n1ssy2.result.Result;
@@ -12,12 +13,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,5 +64,18 @@ public class TeacherController {
                 .build();
 
         return Result.success(teacherLoginVO);
+    }
+
+    /**
+     * 查询课表
+     * @param teacherId
+     * @return
+     */
+    @GetMapping ("/schedule")
+    @ApiOperation("查询课表")
+    public Result<List<Course>> getCourseByTeacherId(String teacherId){
+        log.info("课表查询，教师id：{}",teacherId);
+        List<Course> list = teacherService.getCourseByTeacherId(teacherId);
+        return Result.success(list);
     }
 }

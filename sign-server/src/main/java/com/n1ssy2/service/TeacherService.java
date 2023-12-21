@@ -1,7 +1,10 @@
 package com.n1ssy2.service;
 
 import com.n1ssy2.dto.TeacherDTO;
+import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
+
+import java.util.List;
 
 /**
  * ClassName: TeacherService
@@ -19,4 +22,11 @@ public interface TeacherService {
      * @return
      */
     Teacher login(TeacherDTO teacherDTO);
+
+    /**
+     * 查询课表
+     * @param teacherId
+     * @return
+     */
+    List<Course> getCourseByTeacherId(String teacherId);
 }

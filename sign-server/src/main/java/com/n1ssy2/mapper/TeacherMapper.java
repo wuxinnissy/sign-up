@@ -1,8 +1,6 @@
 package com.n1ssy2.mapper;
 
-import com.n1ssy2.entity.CheckinCase;
-import com.n1ssy2.entity.Course;
-import com.n1ssy2.entity.Teacher;
+import com.n1ssy2.entity.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -36,9 +34,42 @@ public interface TeacherMapper {
     List<Course> getCourseByTeacherId(String teacherId);
 
     /**
+     * 检查有无相同签到码
+     * @param checkinNode
+     * @return
+     */
+    @Select("select checkin_node from checkin_case where checkin_node = #{checkinNode}")
+    String equalsCheckinNode(String checkinNode);
+
+    /**
      * 创建签到实例
      * @param checkinCase
+     * @return
      */
-    @Insert("insert into checkin_case(checkin_id)")
+    @Insert("insert into checkin_case(create_time, course_id, teacher_id, checkin_node) " +
+            "values (#{createTime}, #{courseId}, #{teacherId}, #{checkinNode})")
     void addCheckinCase(CheckinCase checkinCase);
+
+    /**
+     * 获取checkinId
+     * @param checkinNode
+     * @return
+     */
+    @Select("select checkin_id from checkin_case where checkin_node = #{checkinNode}")
+    Integer getCheckinId(String checkinNode);
+
+    /**
+     * 根据courseId查找对应课程学生
+     * @param courseId
+     * @return
+     */
+    @Select("select student_id from student_course where course_id = #{courseId}")
+    List<String> getStudentCourseByCourseId(String courseId);
+
+    /**
+     * 创建签到记录表
+     * @param checkinRecords
+     * @return
+     */
+    void createCheckinRecord(List<CheckinRecord> checkinRecords);
 }

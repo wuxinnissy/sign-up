@@ -1,11 +1,12 @@
 package com.n1ssy2.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  * ClassName: CheckinRecord
@@ -19,9 +20,10 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CheckinRecord implements Serializable {
-    private String checkinId;
+    private Integer checkinId;
     private String studentId;
-    private LocalDateTime checkinTime;
+    private Timestamp checkinTime;
     private Short checkinStatus;
 }

@@ -1,12 +1,12 @@
 package com.n1ssy2.service.impl;
 
+import com.n1ssy2.constant.CheckinConstant;
 import com.n1ssy2.constant.MessageConstant;
 import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.TeacherDTO;
-import com.n1ssy2.entity.CheckinCase;
-import com.n1ssy2.entity.Course;
-import com.n1ssy2.entity.Teacher;
+import com.n1ssy2.entity.*;
 import com.n1ssy2.exception.AccountNotFoundException;
+import com.n1ssy2.mapper.StudentMapper;
 import com.n1ssy2.mapper.TeacherMapper;
 import com.n1ssy2.service.TeacherService;
 import com.n1ssy2.utils.RandomStr;
@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
+
     /**
      * 登录
      * @param teacherDTO
@@ -73,17 +76,39 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     public String createCheckin(CheckinCaseDTO checkinCaseDTO){
-        //获取随机8位字符串作为签到码
+        //获取随机8位字符串作为签到码，并检查签到码是否重复
         String checkinNode = RandomStr.generateRandomStr();
+        String node = teacherMapper.equalsCheckinNode(checkinNode);
+        while(node != null){//防止生成重复的签到码
+            checkinNode = RandomStr.generateRandomStr();
+            node = teacherMapper.equalsCheckinNode(checkinNode);
+        }
+
 
         CheckinCase checkinCase = new CheckinCase();
         BeanUtils.copyProperties(checkinCaseDTO, checkinCase);
 
         checkinCase.setCheckinNode(checkinNode);
-        checkinCase.setCreateTime(LocalDateTime.now());
+        checkinCase.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
 
         teacherMapper.addCheckinCase(checkinCase);
-        teacherMapper.createCheckinRecord(checkinCase.getCheckinId());
+        Integer checkinId = teacherMapper.getCheckinId(checkinNode);
+        checkinCase.setCheckinId(checkinId);
+
+        //将该课程班上的所有学生提取出来
+        List<String> studentIds = teacherMapper.getStudentCourseByCourseId(checkinCase.getCourseId());
+        List<CheckinRecord> checkinRecords = new ArrayList<>();
+        for(String studentId: studentIds){
+            CheckinRecord checkinRecord = CheckinRecord.builder()
+                    .checkinId(checkinId)
+                    .studentId(studentId)
+                    .checkinStatus(CheckinConstant.STATUS_UNCHECKED)
+                    .build();
+            checkinRecords.add(checkinRecord);
+        }
+
+        //创建签到记录表
+        teacherMapper.createCheckinRecord(checkinRecords);
 
         return checkinNode;
     }

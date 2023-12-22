@@ -12,6 +12,8 @@ spring:
       url: jdbc:mysql://${n1ssy2.datasource.host}:${n1ssy2.datasource.port}/${n1ssy2.datasource.database}
       username: ${n1ssy2.datasource.username}
       password: ${n1ssy2.datasource.password}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 
 mybatis:
   #mapper配置文件

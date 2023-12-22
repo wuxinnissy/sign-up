@@ -1,11 +1,12 @@
 package com.n1ssy2.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  * ClassName: CheckinCase
@@ -22,7 +23,8 @@ import java.time.LocalDateTime;
 public class CheckinCase implements Serializable {
     private String teacherId;
     private String courseId;
-    private LocalDateTime createTime;
-    private String checkinId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp createTime;
+    private Integer checkinId;
     private String checkinNode;
 }

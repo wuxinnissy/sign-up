@@ -1,9 +1,12 @@
 package com.n1ssy2.mapper;
 
 import com.n1ssy2.entity.Student;
+import com.n1ssy2.entity.StudentCourse;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @PackageName: com.n1ssy2.mapper

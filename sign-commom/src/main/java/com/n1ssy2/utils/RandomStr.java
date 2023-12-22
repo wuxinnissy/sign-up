@@ -18,12 +18,15 @@ import java.security.SecureRandom;
  * @Version: 1.0
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class RandomStr implements Serializable {
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     public static String generateRandomStr(){
-        SecureRandom secureRandom = new SecureRandom();
-        String randomString = new BigInteger(32, secureRandom).toString(32);
-        return randomString.substring(0, 8); // 获取前8位作为随机字符串
+        SecureRandom random = new SecureRandom();
+        Integer length = 8;
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+        }
+        return sb.toString();
     }
 }

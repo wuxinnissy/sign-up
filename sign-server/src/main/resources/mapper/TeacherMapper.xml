@@ -10,4 +10,11 @@
             )
     </select>
 
+    <insert id="createCheckinRecord">
+        insert into checkin_record (checkin_id, student_id, checkin_time, checkin_status) values
+        <foreach collection="checkinRecords" item="checkinRecord" separator=",">
+            (#{checkinRecord.checkinId},#{checkinRecord.studentId},#{checkinRecord.checkinTime},#{checkinRecord.checkinStatus})
+        </foreach>
+    </insert>
+
 </mapper>

@@ -4,6 +4,7 @@ import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.TeacherDTO;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
+import com.n1ssy2.vo.CheckinCaseVO;
 
 import java.util.List;
 
@@ -37,4 +38,11 @@ public interface TeacherService {
      * @return
      */
     String createCheckin(CheckinCaseDTO checkinCaseDTO);
+
+    /**
+     * 签到实例查询
+     * @param teacherId
+     * @return
+     */
+    List<CheckinCaseVO> queryByTeacherId(String teacherId);
 }

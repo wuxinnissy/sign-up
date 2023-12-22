@@ -10,6 +10,7 @@ import com.n1ssy2.mapper.StudentMapper;
 import com.n1ssy2.mapper.TeacherMapper;
 import com.n1ssy2.service.TeacherService;
 import com.n1ssy2.utils.RandomStr;
+import com.n1ssy2.vo.CheckinCaseVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,10 +37,11 @@ public class TeacherServiceImpl implements TeacherService {
 
     /**
      * 登录
+     *
      * @param teacherDTO
      * @return
      */
-    public Teacher login(TeacherDTO teacherDTO){
+    public Teacher login(TeacherDTO teacherDTO) {
         String teacherId = teacherDTO.getTeacherId();
         String password = teacherDTO.getPassword();
 
@@ -47,12 +49,12 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherMapper.getById(teacherId);
 
         //2. 检验账号是否异常
-        if(teacher == null){
+        if (teacher == null) {
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
 
         password = DigestUtils.md5DigestAsHex(password.getBytes());
-        if(!password.equals(teacher.getPassword())){
+        if (!password.equals(teacher.getPassword())) {
             throw new AccountNotFoundException(MessageConstant.PASSWORD_ERROR);
         }
 
@@ -62,24 +64,26 @@ public class TeacherServiceImpl implements TeacherService {
 
     /**
      * 查询课表
+     *
      * @param teacherId
      * @return
      */
-    public List<Course> getCourseByTeacherId(String teacherId){
+    public List<Course> getCourseByTeacherId(String teacherId) {
         List<Course> list = teacherMapper.getCourseByTeacherId(teacherId);
         return list;
     }
 
     /**
      * 创建签到
+     *
      * @param checkinCaseDTO
      * @return
      */
-    public String createCheckin(CheckinCaseDTO checkinCaseDTO){
+    public String createCheckin(CheckinCaseDTO checkinCaseDTO) {
         //获取随机8位字符串作为签到码，并检查签到码是否重复
         String checkinNode = RandomStr.generateRandomStr();
         String node = teacherMapper.equalsCheckinNode(checkinNode);
-        while(node != null){//防止生成重复的签到码
+        while (node != null) {//防止生成重复的签到码
             checkinNode = RandomStr.generateRandomStr();
             node = teacherMapper.equalsCheckinNode(checkinNode);
         }
@@ -98,7 +102,7 @@ public class TeacherServiceImpl implements TeacherService {
         //将该课程班上的所有学生提取出来
         List<String> studentIds = teacherMapper.getStudentCourseByCourseId(checkinCase.getCourseId());
         List<CheckinRecord> checkinRecords = new ArrayList<>();
-        for(String studentId: studentIds){
+        for (String studentId : studentIds) {
             CheckinRecord checkinRecord = CheckinRecord.builder()
                     .checkinId(checkinId)
                     .studentId(studentId)
@@ -111,5 +115,31 @@ public class TeacherServiceImpl implements TeacherService {
         teacherMapper.createCheckinRecord(checkinRecords);
 
         return checkinNode;
+    }
+
+    /**
+     * 签到实例查询
+     *
+     * @param teacherId
+     * @return
+     */
+    public List<CheckinCaseVO> queryByTeacherId(String teacherId) {
+        //通过教师id查找签到实例
+        List<CheckinCase> cases = teacherMapper.queryByTeacherId(teacherId);
+
+        //将签到实例对应的课程名字找出来
+        List<String> courseNames = teacherMapper.getCourseNamesByCourseId(cases);
+
+        //新建返回类型然后将结果赋值
+        List<CheckinCaseVO> caseVOS = new ArrayList<>();
+        int size = cases.size();
+        for (int i = 0; i < size; i++) {
+            CheckinCaseVO checkinCaseVO = new CheckinCaseVO();
+            BeanUtils.copyProperties(cases.get(i), checkinCaseVO);
+            checkinCaseVO.setCourseName(courseNames.get(i));
+            caseVOS.add(checkinCaseVO);
+        }
+
+        return caseVOS;
     }
 }

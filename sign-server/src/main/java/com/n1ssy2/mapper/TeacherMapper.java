@@ -72,4 +72,19 @@ public interface TeacherMapper {
      * @return
      */
     void createCheckinRecord(List<CheckinRecord> checkinRecords);
+
+    /**
+     * 根据teacherId查询签到实例
+     * @param teacherId
+     * @return
+     */
+    @Select("select * from checkin_case where teacher_id = #{teacherId}")
+    List<CheckinCase> queryByTeacherId(String teacherId);
+
+    /**
+     * 根据courseId查询课程名字
+     * @param cases
+     * @return
+     */
+    List<String> getCourseNamesByCourseId(List<CheckinCase> cases);
 }

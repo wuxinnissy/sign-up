@@ -9,6 +9,8 @@ import com.n1ssy2.properties.JwtProperties;
 import com.n1ssy2.result.Result;
 import com.n1ssy2.service.TeacherService;
 import com.n1ssy2.utils.JwtUtil;
+import com.n1ssy2.vo.CheckinCaseVO;
+import com.n1ssy2.vo.CheckinRecordVO;
 import com.n1ssy2.vo.TeacherLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -95,5 +97,18 @@ public class TeacherController {
         log.info("教师创建签到: {}", checkinCaseDTO);
         String checkinCode = teacherService.createCheckin(checkinCaseDTO);
         return Result.success(checkinCode);
+    }
+
+    /**
+     * 签到实例查询
+     * @param teacherId
+     * @return
+     */
+    @GetMapping("/checkin/queryByTeacherId")
+    @ApiOperation("签到实例查询")
+    public Result<List<CheckinCaseVO>> queryByTeacherId(String teacherId){
+        log.info("查询签到实例，教师id{}", teacherId);
+        List<CheckinCaseVO> caseVOS = teacherService.queryByTeacherId(teacherId);
+        return Result.success(caseVOS);
     }
 }

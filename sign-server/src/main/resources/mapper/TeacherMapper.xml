@@ -17,4 +17,14 @@
         </foreach>
     </insert>
 
+    <select id="getCourseNamesByCourseId" resultType="String">
+        select course_name from course
+        <where>
+            <foreach collection="cases" item="checkinCase" separator=",">
+                course_id = #{checkinCase.courseId}
+            </foreach>
+        </where>
+
+    </select>
+
 </mapper>

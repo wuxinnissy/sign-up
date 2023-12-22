@@ -1,7 +1,9 @@
 package com.n1ssy2.service;
 
+import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
 import com.n1ssy2.entity.Student;
+import com.n1ssy2.vo.CheckinRecordVO;
 
 /**
  * @PackageName: com.n1ssy2.service
@@ -17,4 +19,10 @@ public interface StudentService {
      * @return
      */
     Student login(StudentDTO studentDTO);
+
+    /**
+     * 学生签到
+     * @param checkinRecordVO
+     */
+    void checkin(CheckinRecordVO checkinRecordVO);
 }

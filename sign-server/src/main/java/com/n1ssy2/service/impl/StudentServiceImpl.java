@@ -1,15 +1,24 @@
 package com.n1ssy2.service.impl;
 
+import com.n1ssy2.constant.CheckinConstant;
 import com.n1ssy2.constant.MessageConstant;
 import com.n1ssy2.dto.CheckinCaseDTO;
+import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
+import com.n1ssy2.entity.CheckinRecord;
 import com.n1ssy2.entity.Student;
 import com.n1ssy2.exception.AccountNotFoundException;
 import com.n1ssy2.mapper.StudentMapper;
 import com.n1ssy2.service.StudentService;
+import com.n1ssy2.vo.CheckinRecordVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @PackageName: com.n1ssy2.service.impl
@@ -46,5 +55,23 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return student;
+    }
+
+    /**
+     * 学生签到
+     * @param checkinRecordVO
+     */
+    public void checkin(CheckinRecordVO checkinRecordVO){
+        //通过签到码获取签到id
+        Integer checkinId = studentMapper.getCheckinIdByCheckinNode(checkinRecordVO.getCheckinNode());
+
+        CheckinRecord checkinRecord = CheckinRecord.builder()
+                .checkinId(checkinId)
+                .studentId(checkinRecordVO.getStudentId())
+                .checkinTime(Timestamp.valueOf(LocalDateTime.now()))
+                .checkinStatus(CheckinConstant.STATUS_CHECKED)
+                .build();
+
+        studentMapper.addCheckinRecord(checkinRecord);
     }
 }

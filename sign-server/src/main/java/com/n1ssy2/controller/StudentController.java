@@ -1,12 +1,14 @@
 package com.n1ssy2.controller;
 
 import com.n1ssy2.constant.JwtClaimsConstant;
+import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
 import com.n1ssy2.entity.Student;
 import com.n1ssy2.properties.JwtProperties;
 import com.n1ssy2.result.Result;
 import com.n1ssy2.service.StudentService;
 import com.n1ssy2.utils.JwtUtil;
+import com.n1ssy2.vo.CheckinRecordVO;
 import com.n1ssy2.vo.StudentLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -66,6 +68,15 @@ public class StudentController {
     }
 
     /**
-     *
+     * 学生签到
+     * @param checkinRecordVO
+     * @return
      */
+    @PostMapping("/checkin/checkinByStudent")
+    @ApiOperation("学生签到")
+    public Result<String> checkin(@RequestBody CheckinRecordVO checkinRecordVO){
+        log.info("学生签到：{}", checkinRecordVO);
+        studentService.checkin(checkinRecordVO);
+        return Result.success();
+    }
 }

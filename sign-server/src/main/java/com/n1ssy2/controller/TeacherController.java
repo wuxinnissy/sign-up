@@ -73,15 +73,15 @@ public class TeacherController {
     }
 
     /**
-     * 查询课表
+     * 教师课表查询
      *
      * @param teacherId
      * @return
      */
     @GetMapping("/schedule")
-    @ApiOperation("查询课表")
+    @ApiOperation("教师课表查询")
     public Result<List<Course>> getCourseByTeacherId(String teacherId) {
-        log.info("课表查询，教师id：{}", teacherId);
+        log.info("教师课表查询，教师id：{}", teacherId);
         List<Course> list = teacherService.getCourseByTeacherId(teacherId);
         return Result.success(list);
     }

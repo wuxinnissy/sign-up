@@ -2,6 +2,7 @@ package com.n1ssy2.service;
 
 import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
+import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Student;
 import com.n1ssy2.vo.StudentCheckinRecordVO;
 
@@ -21,6 +22,13 @@ public interface StudentService {
      * @return
      */
     Student login(StudentDTO studentDTO);
+
+    /**
+     * 学生课表查询
+     * @param studentId
+     * @return
+     */
+    List<Course> getCourseByStudentId(String studentId);
 
     /**
      * 学生签到

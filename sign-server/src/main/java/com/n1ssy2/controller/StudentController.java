@@ -3,6 +3,7 @@ package com.n1ssy2.controller;
 import com.n1ssy2.constant.JwtClaimsConstant;
 import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
+import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Student;
 import com.n1ssy2.properties.JwtProperties;
 import com.n1ssy2.result.Result;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.CheckedOutputStream;
 
 /**
  * @PackageName: com.n1ssy2.controller
@@ -66,6 +68,19 @@ public class StudentController {
                 .build();
 
         return Result.success(studentLoginVO);
+    }
+
+    /**
+     * 学生课表查询
+     * @param studentId
+     * @return
+     */
+    @GetMapping("/schedule")
+    @ApiOperation("学生课表查询")
+    public Result<List<Course>> getCourseByStudentId(String studentId){
+        log.info("学生课表查询, 学生id: {}",studentId);
+        List<Course> courses = studentService.getCourseByStudentId(studentId);
+        return Result.success(courses);
     }
 
     /**

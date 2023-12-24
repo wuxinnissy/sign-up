@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.n1ssy2.mapper.StudentMapper">
+    <update id="addCheckinRecord">
+        update checkin_record
+        set checkin_time = #{checkinTime}, checkin_status = #{checkinStatus}
+        where checkin_id = #{checkinId}
+    </update>
+
+    <select id="getCourseByStudentId" resultType="com.n1ssy2.entity.Course">
+        select a.*
+        from course a left join student_course b on a.course_id = b.course_id
+        where b.student_id = #{studentId}
+    </select>
+</mapper>

@@ -1,6 +1,7 @@
 package com.n1ssy2.mapper;
 
 import com.n1ssy2.entity.CheckinRecord;
+import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Student;
 import com.n1ssy2.entity.StudentCourse;
 import org.apache.ibatis.annotations.Insert;
@@ -39,9 +40,6 @@ public interface StudentMapper {
      * 添加签到记录
      * @param checkinRecord
      */
-    @Update("update checkin_record " +
-            "set checkin_time = #{checkinTime}, checkin_status = #{checkinStatus} " +
-            "where checkin_id = #{checkinId}")
     void addCheckinRecord(CheckinRecord checkinRecord);
 
     /**
@@ -83,4 +81,11 @@ public interface StudentMapper {
      */
     @Select("select course_name from course where course_id = #{courseId}")
     String getCourseNameByCourseId(String courseId);
+
+    /**
+     * 通过studentId查询course
+     * @param studentId
+     * @return
+     */
+    List<Course> getCourseByStudentId(String studentId);
 }

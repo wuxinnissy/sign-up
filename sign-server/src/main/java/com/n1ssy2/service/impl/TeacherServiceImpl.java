@@ -73,8 +73,13 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     public List<Course> getCourseByTeacherId(String teacherId) {
-        List<Course> list = teacherMapper.getCourseByTeacherId(teacherId);
-        return list;
+        List<Course> courses = teacherMapper.getCourseByTeacherId(teacherId);
+        //判断是否能查询到课表
+        if(courses != null && courses.size() > 0){
+            return courses;
+        }else{
+            throw new BaseException(MessageConstant.COURSE_NOT_FOUND);
+        }
     }
 
     /**
@@ -131,20 +136,27 @@ public class TeacherServiceImpl implements TeacherService {
         //通过教师id查找签到实例
         List<CheckinCase> cases = teacherMapper.queryByTeacherId(teacherId);
 
-        //将签到实例对应的课程名字找出来
-        List<String> courseNames = teacherMapper.getCourseNamesByCourseId(cases);
+        //判断该教师是否任何签到实例
+        if(cases != null && cases.size() > 0){
+            //将签到实例对应的课程名字找出来
+            List<String> courseNames = teacherMapper.getCourseNamesByCourseId(cases);
 
-        //新建返回类型然后将结果赋值
-        List<CheckinCaseVO> caseVOS = new ArrayList<>();
-        int size = cases.size();
-        for (int i = 0; i < size; i++) {
-            CheckinCaseVO checkinCaseVO = new CheckinCaseVO();
-            BeanUtils.copyProperties(cases.get(i), checkinCaseVO);
-            checkinCaseVO.setCourseName(courseNames.get(i));
-            caseVOS.add(checkinCaseVO);
+            //新建返回类型然后将结果赋值
+            List<CheckinCaseVO> caseVOS = new ArrayList<>();
+            int size = cases.size();
+            for (int i = 0; i < size; i++) {
+                CheckinCaseVO checkinCaseVO = new CheckinCaseVO();
+                BeanUtils.copyProperties(cases.get(i), checkinCaseVO);
+                checkinCaseVO.setCourseName(courseNames.get(i));
+                caseVOS.add(checkinCaseVO);
+            }
+
+            return caseVOS;
+        }else{
+            throw new BaseException(MessageConstant.CASE_NOT_FOUND);
         }
 
-        return caseVOS;
+
     }
 
     /**

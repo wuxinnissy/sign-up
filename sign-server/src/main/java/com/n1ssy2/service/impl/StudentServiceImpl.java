@@ -5,6 +5,7 @@ import com.n1ssy2.constant.MessageConstant;
 import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
 import com.n1ssy2.entity.CheckinRecord;
+import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Student;
 import com.n1ssy2.exception.AccountNotFoundException;
 import com.n1ssy2.exception.BaseException;
@@ -56,6 +57,21 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return student;
+    }
+
+    /**
+     * 学生课表查询
+     * @param studentId
+     * @return
+     */
+    public List<Course> getCourseByStudentId(String studentId){
+        List<Course> courses = studentMapper.getCourseByStudentId(studentId);
+        //判断是否能查询到课表
+        if(courses != null && courses.size() > 0){
+            return courses;
+        }else{
+            throw new BaseException(MessageConstant.COURSE_NOT_FOUND);
+        }
     }
 
     /**

@@ -59,4 +59,28 @@ public interface StudentMapper {
      */
     @Select("select student_name from student where student_id = #{studentId}")
     String getStudentNameByStudentId(String studentId);
+
+    /**
+     * 通过studentId查找签到记录
+     * @param studentId
+     * @return
+     */
+    @Select("select * from checkin_record where student_id = #{studentId}")
+    List<CheckinRecord> queryByStudentId(String studentId);
+
+    /**
+     * 通过checkinId查找courseId
+     * @param checkinId
+     * @return
+     */
+    @Select("select course_id from checkin_case where checkin_id = #{checkinId}")
+    String getCourseIdBycheckinId(Integer checkinId);
+
+    /**
+     * 通过courseId查询courseName
+     * @parma courseId
+     * @return
+     */
+    @Select("select course_name from course where course_id = #{courseId}")
+    String getCourseNameByCourseId(String courseId);
 }

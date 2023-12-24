@@ -10,21 +10,21 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * ClassName: CheckinRecordVO
+ * ClassName: StuCheckinRecordVO
  * Package: com.n1ssy2.vo
  * Description:
  *
  * @Auther: N1ssy2
- * @Create: 2023/12/22 20:14
+ * @Create: 2023/12/24 15:42
  * @Version: 1.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CheckinRecordVO implements Serializable {
-    private String studentId;
-    private String studentName;
+public class StudentCheckinRecordVO implements Serializable {
+    private Integer checkinId;
+    private String courseName;
     private Short checkinStatus;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp checkinTime;

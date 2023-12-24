@@ -8,7 +8,7 @@ import com.n1ssy2.properties.JwtProperties;
 import com.n1ssy2.result.Result;
 import com.n1ssy2.service.StudentService;
 import com.n1ssy2.utils.JwtUtil;
-import com.n1ssy2.vo.CheckinRecordVO;
+import com.n1ssy2.vo.StudentCheckinRecordVO;
 import com.n1ssy2.vo.StudentLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,5 +79,18 @@ public class StudentController {
         log.info("学生签到：{}", checkinRecordDTO);
         studentService.checkin(checkinRecordDTO);
         return Result.success();
+    }
+
+    /**
+     * 学生签到记录查询
+     * @param studentId
+     * @return
+     */
+    @GetMapping("/checkin/queryByStudentId")
+    @ApiOperation("学生签到记录查询")
+    public Result<List<StudentCheckinRecordVO>> queryByStudentId(String studentId){
+        log.info("学生签到记录查询, id:{}",studentId);
+        List<StudentCheckinRecordVO> recordVOS = studentService.queryByStudentId(studentId);
+        return Result.success(recordVOS);
     }
 }

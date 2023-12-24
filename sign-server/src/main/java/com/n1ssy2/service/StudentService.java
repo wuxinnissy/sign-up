@@ -3,7 +3,9 @@ package com.n1ssy2.service;
 import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
 import com.n1ssy2.entity.Student;
-import com.n1ssy2.vo.CheckinRecordVO;
+import com.n1ssy2.vo.StudentCheckinRecordVO;
+
+import java.util.List;
 
 /**
  * @PackageName: com.n1ssy2.service
@@ -25,4 +27,11 @@ public interface StudentService {
      * @param checkinRecordDTO
      */
     void checkin(CheckinRecordDTO checkinRecordDTO);
+
+    /**
+     * 学生签到记录查询
+     * @param studentId
+     * @return
+     */
+    List<StudentCheckinRecordVO> queryByStudentId(String studentId);
 }

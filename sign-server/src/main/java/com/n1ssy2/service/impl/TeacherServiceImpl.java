@@ -12,7 +12,7 @@ import com.n1ssy2.mapper.TeacherMapper;
 import com.n1ssy2.service.TeacherService;
 import com.n1ssy2.utils.RandomStr;
 import com.n1ssy2.vo.CheckinCaseVO;
-import com.n1ssy2.vo.CheckinRecordVO;
+import com.n1ssy2.vo.TeacherCheckinRecordVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,21 +152,21 @@ public class TeacherServiceImpl implements TeacherService {
      * @param checkinId
      * @return
      */
-    public List<CheckinRecordVO> queryByCheckinId(Integer checkinId){
+    public List<TeacherCheckinRecordVO> queryByCheckinId(Integer checkinId){
         //查找签到记录表
         List<CheckinRecord> records = teacherMapper.getCheckinRecordByCheckinId(checkinId);
 
         if(records != null && records.size() > 0){
 
-            List<CheckinRecordVO> recordVOS = new ArrayList<>();
+            List<TeacherCheckinRecordVO> recordVOS = new ArrayList<>();
             records.forEach(checkinRecord -> {
-                CheckinRecordVO checkinRecordVO = new CheckinRecordVO();
-                BeanUtils.copyProperties(checkinRecord,checkinRecordVO);
+                TeacherCheckinRecordVO teacherCheckinRecordVO = new TeacherCheckinRecordVO();
+                BeanUtils.copyProperties(checkinRecord, teacherCheckinRecordVO);
 
                 //获取studentName
                 String studentName = studentMapper.getStudentNameByStudentId(checkinRecord.getStudentId());
-                checkinRecordVO.setStudentName(studentName);
-                recordVOS.add(checkinRecordVO);
+                teacherCheckinRecordVO.setStudentName(studentName);
+                recordVOS.add(teacherCheckinRecordVO);
             });
             return recordVOS;
         }else{

@@ -5,7 +5,7 @@ import com.n1ssy2.dto.TeacherDTO;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Teacher;
 import com.n1ssy2.vo.CheckinCaseVO;
-import com.n1ssy2.vo.CheckinRecordVO;
+import com.n1ssy2.vo.TeacherCheckinRecordVO;
 
 import java.util.List;
 
@@ -52,5 +52,5 @@ public interface TeacherService {
      * @param checkinId
      * @return
      */
-    List<CheckinRecordVO> queryByCheckinId(Integer checkinId);
+    List<TeacherCheckinRecordVO> queryByCheckinId(Integer checkinId);
 }

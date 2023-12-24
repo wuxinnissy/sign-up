@@ -10,7 +10,7 @@ import com.n1ssy2.result.Result;
 import com.n1ssy2.service.TeacherService;
 import com.n1ssy2.utils.JwtUtil;
 import com.n1ssy2.vo.CheckinCaseVO;
-import com.n1ssy2.vo.CheckinRecordVO;
+import com.n1ssy2.vo.TeacherCheckinRecordVO;
 import com.n1ssy2.vo.TeacherLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -119,9 +119,9 @@ public class TeacherController {
      */
     @GetMapping("/checkin/queryByCheckinId")
     @ApiOperation("签到记录表查询")
-    public Result<List<CheckinRecordVO>> queryByCheckinId(Integer checkinId){
+    public Result<List<TeacherCheckinRecordVO>> queryByCheckinId(Integer checkinId){
         log.info("签到记录表查询: checkinId:{}", checkinId);
-        List<CheckinRecordVO> recordVOS = teacherService.queryByCheckinId(checkinId);
+        List<TeacherCheckinRecordVO> recordVOS = teacherService.queryByCheckinId(checkinId);
         return Result.success(recordVOS);
     }
 }

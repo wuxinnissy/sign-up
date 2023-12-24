@@ -69,14 +69,14 @@ public class StudentController {
 
     /**
      * 学生签到
-     * @param checkinRecordVO
+     * @param checkinRecordDTO
      * @return
      */
     @PostMapping("/checkin/checkinByStudent")
     @ApiOperation("学生签到")
-    public Result<String> checkin(@RequestBody CheckinRecordVO checkinRecordVO){
-        log.info("学生签到：{}", checkinRecordVO);
-        studentService.checkin(checkinRecordVO);
+    public Result<String> checkin(@RequestBody CheckinRecordDTO checkinRecordDTO){
+        log.info("学生签到：{}", checkinRecordDTO);
+        studentService.checkin(checkinRecordDTO);
         return Result.success();
     }
 }

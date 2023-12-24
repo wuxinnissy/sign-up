@@ -25,6 +25,5 @@ import java.sql.Timestamp;
 public class CheckinRecordDTO implements Serializable {
     private String studentId;
     private String courseId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp checkinTime;
+    private String checkinNode;
 }

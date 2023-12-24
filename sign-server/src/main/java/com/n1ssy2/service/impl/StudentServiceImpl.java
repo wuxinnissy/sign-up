@@ -59,15 +59,15 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 学生签到
-     * @param checkinRecordVO
+     * @param checkinRecordDTO
      */
-    public void checkin(CheckinRecordVO checkinRecordVO){
+    public void checkin(CheckinRecordDTO checkinRecordDTO){
         //通过签到码获取签到id
-        Integer checkinId = studentMapper.getCheckinIdByCheckinNode(checkinRecordVO.getCheckinNode());
+        Integer checkinId = studentMapper.getCheckinIdByCheckinNode(checkinRecordDTO.getCheckinNode());
 
         CheckinRecord checkinRecord = CheckinRecord.builder()
                 .checkinId(checkinId)
-                .studentId(checkinRecordVO.getStudentId())
+                .studentId(checkinRecordDTO.getStudentId())
                 .checkinTime(Timestamp.valueOf(LocalDateTime.now()))
                 .checkinStatus(CheckinConstant.STATUS_CHECKED)
                 .build();

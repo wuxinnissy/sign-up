@@ -43,4 +43,20 @@ public interface StudentMapper {
             "set checkin_time = #{checkinTime}, checkin_status = #{checkinStatus} " +
             "where checkin_id = #{checkinId}")
     void addCheckinRecord(CheckinRecord checkinRecord);
+
+    /**
+     * 根据courseId查找对应课程学生
+     * @param courseId
+     * @return
+     */
+    @Select("select student_id from student_course where course_id = #{courseId}")
+    List<String> getStudentIdByCourseId(String courseId);
+
+    /**
+     * 通过id查找学生姓名
+     * @param studentId
+     * @return
+     */
+    @Select("select student_name from student where student_id = #{studentId}")
+    String getStudentNameByStudentId(String studentId);
 }

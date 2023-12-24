@@ -6,11 +6,13 @@ import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.TeacherDTO;
 import com.n1ssy2.entity.*;
 import com.n1ssy2.exception.AccountNotFoundException;
+import com.n1ssy2.exception.BaseException;
 import com.n1ssy2.mapper.StudentMapper;
 import com.n1ssy2.mapper.TeacherMapper;
 import com.n1ssy2.service.TeacherService;
 import com.n1ssy2.utils.RandomStr;
 import com.n1ssy2.vo.CheckinCaseVO;
+import com.n1ssy2.vo.CheckinRecordVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,8 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
+    @Autowired
+    private StudentMapper studentMapper;
 
     /**
      * 登录
@@ -100,7 +104,7 @@ public class TeacherServiceImpl implements TeacherService {
         checkinCase.setCheckinId(checkinId);
 
         //将该课程班上的所有学生提取出来
-        List<String> studentIds = teacherMapper.getStudentCourseByCourseId(checkinCase.getCourseId());
+        List<String> studentIds = studentMapper.getStudentIdByCourseId(checkinCase.getCourseId());
         List<CheckinRecord> checkinRecords = new ArrayList<>();
         for (String studentId : studentIds) {
             CheckinRecord checkinRecord = CheckinRecord.builder()
@@ -141,5 +145,32 @@ public class TeacherServiceImpl implements TeacherService {
         }
 
         return caseVOS;
+    }
+
+    /**
+     * 签到记录表查询
+     * @param checkinId
+     * @return
+     */
+    public List<CheckinRecordVO> queryByCheckinId(Integer checkinId){
+        //查找签到记录表
+        List<CheckinRecord> records = teacherMapper.getCheckinRecordByCheckinId(checkinId);
+
+        if(records != null && records.size() > 0){
+
+            List<CheckinRecordVO> recordVOS = new ArrayList<>();
+            records.forEach(checkinRecord -> {
+                CheckinRecordVO checkinRecordVO = new CheckinRecordVO();
+                BeanUtils.copyProperties(checkinRecord,checkinRecordVO);
+
+                //获取studentName
+                String studentName = studentMapper.getStudentNameByStudentId(checkinRecord.getStudentId());
+                checkinRecordVO.setStudentName(studentName);
+                recordVOS.add(checkinRecordVO);
+            });
+            return recordVOS;
+        }else{
+            throw new BaseException(MessageConstant.RECORD_NOT_FOUND);
+        }
     }
 }

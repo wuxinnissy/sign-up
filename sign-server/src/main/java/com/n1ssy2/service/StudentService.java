@@ -22,7 +22,7 @@ public interface StudentService {
 
     /**
      * 学生签到
-     * @param checkinRecordVO
+     * @param checkinRecordDTO
      */
-    void checkin(CheckinRecordVO checkinRecordVO);
+    void checkin(CheckinRecordDTO checkinRecordDTO);
 }

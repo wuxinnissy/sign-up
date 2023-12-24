@@ -58,13 +58,7 @@ public interface TeacherMapper {
     @Select("select checkin_id from checkin_case where checkin_node = #{checkinNode}")
     Integer getCheckinId(String checkinNode);
 
-    /**
-     * 根据courseId查找对应课程学生
-     * @param courseId
-     * @return
-     */
-    @Select("select student_id from student_course where course_id = #{courseId}")
-    List<String> getStudentCourseByCourseId(String courseId);
+
 
     /**
      * 创建签到记录表
@@ -87,4 +81,12 @@ public interface TeacherMapper {
      * @return
      */
     List<String> getCourseNamesByCourseId(List<CheckinCase> cases);
+
+    /**
+     * 查询签到记录表
+     * @param checkinId
+     * @return
+     */
+    @Select("select * from checkin_record where checkin_id = #{checkinId}")
+    List<CheckinRecord> getCheckinRecordByCheckinId(Integer checkinId);
 }

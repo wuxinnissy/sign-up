@@ -24,6 +24,8 @@ import java.sql.Timestamp;
 @Builder
 public class CheckinRecordVO implements Serializable {
     private String studentId;
-    private String courseId;
-    private String checkinNode;
+    private String studentName;
+    private Short checkinStatus;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp checkinTime;
 }

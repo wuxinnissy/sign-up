@@ -111,4 +111,17 @@ public class TeacherController {
         List<CheckinCaseVO> caseVOS = teacherService.queryByTeacherId(teacherId);
         return Result.success(caseVOS);
     }
+
+    /**
+     * 签到记录表查询
+     * @param checkinId
+     * @return
+     */
+    @GetMapping("/checkin/queryByCheckinId")
+    @ApiOperation("签到记录表查询")
+    public Result<List<CheckinRecordVO>> queryByCheckinId(Integer checkinId){
+        log.info("签到记录表查询: checkinId:{}", checkinId);
+        List<CheckinRecordVO> recordVOS = teacherService.queryByCheckinId(checkinId);
+        return Result.success(recordVOS);
+    }
 }

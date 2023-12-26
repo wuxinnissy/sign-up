@@ -13,7 +13,7 @@ INSERT INTO sign_up.teacher (teacher_id, teacher_name, password) VALUES ('001', 
 INSERT INTO sign_up.teacher (teacher_id, teacher_name, password) VALUES ('002', '李蒙', 'e10adc3949ba59abbe56e057f20f883e');
 INSERT INTO sign_up.teacher (teacher_id, teacher_name, password) VALUES ('003', '李金喜', 'e10adc3949ba59abbe56e057f20f883e');
 INSERT INTO sign_up.teacher (teacher_id, teacher_name, password) VALUES ('004', '樊钧', 'e10adc3949ba59abbe56e057f20f883e');
-INSERT INTO sign_up.teacher (teacher_id, teacher_name, password) VALUES ('005', '刘雨朦', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO sign_up.teacher (teacher_id, teacher_name, password) VALUES ('005', '刘羽朦', 'e10adc3949ba59abbe56e057f20f883e');
 INSERT INTO sign_up.teacher (teacher_id, teacher_name, password) VALUES ('006', '赵天鸿', 'e10adc3949ba59abbe56e057f20f883e');
 
 CREATE TABLE student (

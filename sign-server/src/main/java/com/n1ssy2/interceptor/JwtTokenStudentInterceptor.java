@@ -1,7 +1,9 @@
 package com.n1ssy2.interceptor;
 
 import com.n1ssy2.constant.JwtClaimsConstant;
+import com.n1ssy2.constant.MessageConstant;
 import com.n1ssy2.context.BaseContext;
+import com.n1ssy2.exception.BaseException;
 import com.n1ssy2.properties.JwtProperties;
 import com.n1ssy2.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -63,7 +65,7 @@ public class JwtTokenStudentInterceptor implements HandlerInterceptor {
         } catch (Exception ex) {
             //4、不通过，响应401状态码
             response.setStatus(401);
-            return false;
+            throw new BaseException(MessageConstant.JWT_ERROR);
         }
     }
 }

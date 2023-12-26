@@ -24,6 +24,5 @@ import java.sql.Timestamp;
 @Builder
 public class CheckinRecordDTO implements Serializable {
     private String studentId;
-    private String courseId;
     private String checkinNode;
 }

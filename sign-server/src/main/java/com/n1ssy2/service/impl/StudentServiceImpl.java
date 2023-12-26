@@ -7,6 +7,7 @@ import com.n1ssy2.dto.StudentDTO;
 import com.n1ssy2.entity.CheckinRecord;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Student;
+import com.n1ssy2.entity.StudentCourse;
 import com.n1ssy2.exception.AccountNotFoundException;
 import com.n1ssy2.exception.BaseException;
 import com.n1ssy2.mapper.StudentMapper;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -82,6 +84,22 @@ public class StudentServiceImpl implements StudentService {
         //通过签到码获取签到id
         Integer checkinId = studentMapper.getCheckinIdByCheckinNode(checkinRecordDTO.getCheckinNode());
 
+        //检查签到码是否有效
+        if(checkinId == null){
+            throw new BaseException(MessageConstant.CHECKIN_ID_ERROR);
+        }
+
+        //检查签到码时效
+        Timestamp createTime = studentMapper.getCreateTimeByCheckinId(checkinId);
+        Timestamp myTime = Timestamp.valueOf(LocalDateTime.now());
+        System.out.println(myTime);
+        Timestamp maxTime = new Timestamp(createTime.getTime()+(10*60*1000));//10min时效
+        System.out.println(maxTime);
+
+        if(myTime.compareTo(maxTime) > 0){
+            throw new BaseException(MessageConstant.CHECKIN_TIME_ERROR);
+        }
+
         CheckinRecord checkinRecord = CheckinRecord.builder()
                 .checkinId(checkinId)
                 .studentId(checkinRecordDTO.getStudentId())
@@ -89,7 +107,14 @@ public class StudentServiceImpl implements StudentService {
                 .checkinStatus(CheckinConstant.STATUS_CHECKED)
                 .build();
 
-        studentMapper.addCheckinRecord(checkinRecord);
+
+
+        //检查该学生是否在这个签到码对应课程
+        CheckinRecord checkinRecord1 = studentMapper.getCheckinRecord(checkinRecord);
+        if(checkinRecord1 == null){
+            throw new BaseException(MessageConstant.STU_NOT_IN_COURSE);
+        }
+        studentMapper.updateCheckinRecord(checkinRecord);
     }
 
     /**

@@ -3,12 +3,11 @@ package com.n1ssy2.mapper;
 import com.n1ssy2.entity.CheckinRecord;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Student;
-import com.n1ssy2.entity.StudentCourse;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
+import java.nio.charset.CharsetEncoder;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -40,7 +39,14 @@ public interface StudentMapper {
      * 添加签到记录
      * @param checkinRecord
      */
-    void addCheckinRecord(CheckinRecord checkinRecord);
+    void updateCheckinRecord(CheckinRecord checkinRecord);
+
+    /**
+     * 读取签到记录确认签到记录是否存在
+     * @param checkinRecord
+     * @return
+     */
+    CheckinRecord getCheckinRecord(CheckinRecord checkinRecord);
 
     /**
      * 根据courseId查找对应课程学生
@@ -88,4 +94,12 @@ public interface StudentMapper {
      * @return
      */
     List<Course> getCourseByStudentId(String studentId);
+
+    /**
+     * 获取考勤创建时间
+     * @param checkinId
+     * @return
+     */
+    @Select("select create_time from checkin_case where checkin_id = #{checkinId}")
+    Timestamp getCreateTimeByCheckinId(Integer checkinId);
 }

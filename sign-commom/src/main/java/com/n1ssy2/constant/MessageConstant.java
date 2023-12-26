@@ -17,4 +17,8 @@ public class MessageConstant {
     public static final String STU_RECORD_NOT_FOUND = "该学生暂无任何签到记录";
     public static final String COURSE_NOT_FOUND = "该id下未查到任何课程记录";
     public static final String CASE_NOT_FOUND = "该教师不存在任何签到实例记录";
+    public static final String STU_NOT_IN_COURSE = "该学生没有选择该课程";
+    public static final String CHECKIN_ID_ERROR = "考勤码有误";
+    public static final String CHECKIN_TIME_ERROR = "未在规定时间考勤";
+    public static final String JWT_ERROR = "JWT令牌解析失败";
 }

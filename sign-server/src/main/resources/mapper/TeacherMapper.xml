@@ -3,11 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.n1ssy2.mapper.TeacherMapper">
     <select id="getCourseByTeacherId" resultType="com.n1ssy2.entity.Course">
-        select * from course
-        where course_id = (
-        select course_id from teacher
-        where teacher_id = #{teacherId}
-            )
+        select a.*
+        from course a left join teacher_course b on a.course_id = b.course_id
+        where b.teacher_id = #{teacherId}
     </select>
 
     <insert id="createCheckinRecord">

@@ -138,18 +138,32 @@ public class TeacherServiceImpl implements TeacherService {
 
         //判断该教师是否任何签到实例
         if(cases != null && cases.size() > 0){
-            //将签到实例对应的课程名字找出来
-            List<String> courseNames = teacherMapper.getCourseNamesByCourseId(cases);
-
-            //新建返回类型然后将结果赋值
             List<CheckinCaseVO> caseVOS = new ArrayList<>();
-            int size = cases.size();
-            for (int i = 0; i < size; i++) {
+            cases.forEach(checkinCase -> {
                 CheckinCaseVO checkinCaseVO = new CheckinCaseVO();
-                BeanUtils.copyProperties(cases.get(i), checkinCaseVO);
-                checkinCaseVO.setCourseName(courseNames.get(i));
+                BeanUtils.copyProperties(checkinCase, checkinCaseVO);
+                checkinCaseVO.setCourseName(studentMapper.getCourseNameByCourseId(checkinCase.getCourseId()));
                 caseVOS.add(checkinCaseVO);
-            }
+            });
+
+
+
+//            //将签到实例对应的课程名字找出来
+//            System.out.println(cases.size());
+//            List<String> courseNames = teacherMapper.getCourseNamesByCourseId(cases);
+//            System.out.println(courseNames.size());
+//
+//            //新建返回类型然后将结果赋值
+//            List<CheckinCaseVO> caseVOS = new ArrayList<>();
+//            int size = cases.size();
+//            System.out.println(size);
+//            for (int i = 0; i < size; i++) {
+//                CheckinCaseVO checkinCaseVO = new CheckinCaseVO();
+//                BeanUtils.copyProperties(cases.get(i), checkinCaseVO);
+//                System.out.println(i);
+//                checkinCaseVO.setCourseName(courseNames.get(i));
+//                caseVOS.add(checkinCaseVO);
+//            }
 
             return caseVOS;
         }else{

@@ -76,13 +76,6 @@ public interface TeacherMapper {
     List<CheckinCase> queryByTeacherId(String teacherId);
 
     /**
-     * 根据courseId查询课程名字
-     * @param cases
-     * @return
-     */
-    List<String> getCourseNamesByCourseId(List<CheckinCase> cases);
-
-    /**
      * 查询签到记录表
      * @param checkinId
      * @return

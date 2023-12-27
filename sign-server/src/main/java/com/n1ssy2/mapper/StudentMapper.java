@@ -102,4 +102,11 @@ public interface StudentMapper {
      */
     @Select("select create_time from checkin_case where checkin_id = #{checkinId}")
     Timestamp getCreateTimeByCheckinId(Integer checkinId);
+
+    /**
+     * 获取签到状态
+     * @param checkinRecord
+     * @return
+     */
+    Short getCheckinStatusByCheckinId(CheckinRecord checkinRecord);
 }

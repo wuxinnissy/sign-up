@@ -10,5 +10,6 @@ package com.n1ssy2.constant;
 public class CheckinConstant {
     public static final Short STATUS_CHECKED = 1;
     public static final Short STATUS_UNCHECKED = 0;
+    public static final Short STATUS_LATE = 2;
 
 }

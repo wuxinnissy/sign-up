@@ -21,4 +21,5 @@ public class MessageConstant {
     public static final String CHECKIN_ID_ERROR = "考勤码有误";
     public static final String CHECKIN_TIME_ERROR = "未在规定时间考勤";
     public static final String JWT_ERROR = "JWT令牌解析失败";
+    public static final String CHECKINED = "请勿重复签到";
 }

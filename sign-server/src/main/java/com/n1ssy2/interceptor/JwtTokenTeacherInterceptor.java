@@ -55,7 +55,7 @@ public class JwtTokenTeacherInterceptor implements HandlerInterceptor {
         try {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
-            Long teacherId = Long.valueOf(claims.get(JwtClaimsConstant.TEACHER_ID).toString());
+            String teacherId = claims.get(JwtClaimsConstant.TEACHER_ID).toString();
             log.info("当前id：{}", teacherId);
 
             //将操作者id放到ThreadLocal中

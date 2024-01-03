@@ -15,5 +15,8 @@
         </foreach>
     </insert>
 
-
+    <insert id="addCourse">
+        insert into course (course_id, course_name, begin_time, end_time) values
+        (#{courseId}, #{courseName}, #{beginTime}, #{endTime})
+    </insert>
 </mapper>

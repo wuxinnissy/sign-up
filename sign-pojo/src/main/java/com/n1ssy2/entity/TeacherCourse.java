@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * PackageName: com.n1ssy2.entity
- * ClassName: StudentCourse
- * Description: 学生课程表
+ * ClassName: TeacherCourse
+ * Package: com.n1ssy2.entity
+ * Description:
  *
- * @Arthor: N1ssy2
- * @Create: 2023/12/22 12:53
+ * @Auther: N1ssy2
+ * @Create: 2024/1/3 9:56
  * @Version: 1.0
- **/
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentCourse implements Serializable {
-    private String studentId;
+public class TeacherCourse implements Serializable {
+    private String teacherId;
     private String courseId;
 }

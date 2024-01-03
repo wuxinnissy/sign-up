@@ -56,8 +56,8 @@ public interface TeacherService {
 
     /**
      * 教师课表导入
-     * @param file
+     * @param dataList
      * @return
      */
-
+    void setCourseByFile(List<Course> dataList);
 }

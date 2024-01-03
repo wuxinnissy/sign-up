@@ -82,4 +82,33 @@ public interface TeacherMapper {
      */
     @Select("select * from checkin_record where checkin_id = #{checkinId}")
     List<CheckinRecord> getCheckinRecordByCheckinId(Integer checkinId);
+
+    /**
+     * 添加课表
+     * @param course
+     */
+    void addCourse(Course course);
+
+    /**
+     * 添加教师课表
+     * @param teacherCourse
+     */
+    @Insert("insert into teacher_course(teacher_id, course_id) values (#{teacherId}, #{courseId})")
+    void addTeacherCourse(TeacherCourse teacherCourse);
+
+    /**
+     * 查询课程是否存在
+     * @param courseId
+     * @return
+     */
+    @Select("select * from course where course_id = #{courseId}")
+    Course getCourseByCourseId(String courseId);
+
+    /**
+     * 查询教师-课程是否存在
+     * @param teacherCourse
+     * @return
+     */
+    @Select("select * from teacher_course where teacher_id = #{teacherId} and course_id = #{courseId}")
+    TeacherCourse getTeacherCourse(TeacherCourse teacherCourse);
 }

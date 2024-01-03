@@ -2,6 +2,7 @@ package com.n1ssy2.service.impl;
 
 import com.n1ssy2.constant.CheckinConstant;
 import com.n1ssy2.constant.MessageConstant;
+import com.n1ssy2.context.BaseContext;
 import com.n1ssy2.dto.CheckinCaseDTO;
 import com.n1ssy2.dto.TeacherDTO;
 import com.n1ssy2.entity.*;
@@ -198,5 +199,32 @@ public class TeacherServiceImpl implements TeacherService {
         }else{
             throw new BaseException(MessageConstant.RECORD_NOT_FOUND);
         }
+    }
+
+    /**
+     * 教师课表导入
+     * @param dataList
+     * @return
+     */
+    public void setCourseByFile(List<Course> dataList){
+        dataList.forEach(data -> {
+            TeacherCourse teacherCourse = TeacherCourse.builder()
+                    .teacherId(BaseContext.getCurrentId())
+                    .courseId(data.getCourseId())
+                    .build();
+
+            //检查课程是否存在
+            Course course = teacherMapper.getCourseByCourseId(data.getCourseId());
+            if(course == null){
+                teacherMapper.addCourse(data);
+                teacherMapper.addTeacherCourse(teacherCourse);
+            }else{
+                //检查教师是否有该课程
+                TeacherCourse teacherCourse1 = teacherMapper.getTeacherCourse(teacherCourse);
+                if(teacherCourse1 == null){
+                    teacherMapper.addTeacherCourse(teacherCourse);
+                }
+            }
+        });
     }
 }

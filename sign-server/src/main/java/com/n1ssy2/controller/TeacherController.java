@@ -141,6 +141,7 @@ public class TeacherController {
      * @return
      */
     @GetMapping(value = "/export", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ApiOperation("教师课表导出")
     public ResponseEntity<byte[]> exportData(String teacherId) {
         log.info("教师课表导出，教师id{}",teacherId);
         // 查询数据库，获取数据列表
@@ -191,6 +192,7 @@ public class TeacherController {
      * @return
      */
     @PostMapping("/upload")
+    @ApiOperation("教师课表导入")
     public Result<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
         try {
             Workbook workbook = new XSSFWorkbook(file.getInputStream()); // 读取上传的Excel文件

@@ -108,4 +108,17 @@ public class StudentController {
         List<StudentCheckinRecordVO> recordVOS = studentService.queryByStudentId(studentId);
         return Result.success(recordVOS);
     }
+
+    /**
+     * 注册
+     * @param student
+     * @return
+     */
+    @PostMapping("/regist")
+    @ApiOperation("学生注册")
+    public Result<String> regist(@RequestBody Student student){
+        log.info("学生注册：{}", student);
+        studentService.regist(student);
+        return Result.success();
+    }
 }

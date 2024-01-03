@@ -3,6 +3,7 @@ package com.n1ssy2.mapper;
 import com.n1ssy2.entity.CheckinRecord;
 import com.n1ssy2.entity.Course;
 import com.n1ssy2.entity.Student;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -117,4 +118,20 @@ public interface StudentMapper {
      */
     @Select("select valid_time from checkin_case where checkin_id = #{checkinId}")
     Integer getValidTimeByCheckinId(Integer checkinId);
+
+    /**
+     * 查询学生信息
+     * @param studentId
+     * @return
+     */
+    @Select("select * from student where student_id = #{studentId}")
+    Student getStudentByStudentId(String studentId);
+
+    /**
+     * 注册
+     * @param student
+     */
+    @Insert("insert into student (student_id, student_name, password) values " +
+            "(#{studentId}, #{studentName}, #{password})")
+    void regist(Student student);
 }

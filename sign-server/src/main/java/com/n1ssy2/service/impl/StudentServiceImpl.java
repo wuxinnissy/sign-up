@@ -158,4 +158,29 @@ public class StudentServiceImpl implements StudentService {
             throw new BaseException(MessageConstant.STU_RECORD_NOT_FOUND);
         }
     }
+
+    /**
+     * 学生注册
+     * @param student
+     */
+    public void regist(Student student){
+        //检查工号重复
+        Student stu = studentMapper.getStudentByStudentId(student.getStudentId());
+        if(stu != null){
+            throw new BaseException(MessageConstant.ACCOUNT_EXIST);
+        }
+
+        //检查密码是否大于6位
+        String password = student.getPassword();
+        if(password.length()<6){
+            throw new BaseException(MessageConstant.PASSWORD_TOO_SHORT);
+        }
+
+        //密码md5加密
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        student.setPassword(password);
+
+        //注册
+        studentMapper.regist(student);
+    }
 }

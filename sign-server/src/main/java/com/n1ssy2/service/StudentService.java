@@ -42,4 +42,10 @@ public interface StudentService {
      * @return
      */
     List<StudentCheckinRecordVO> queryByStudentId(String studentId);
+
+    /**
+     * 学生注册
+     * @param student
+     */
+    void regist(Student student);
 }

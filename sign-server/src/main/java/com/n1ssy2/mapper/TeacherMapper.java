@@ -46,8 +46,8 @@ public interface TeacherMapper {
      * @param checkinCase
      * @return
      */
-    @Insert("insert into checkin_case(create_time, course_id, teacher_id, checkin_node) " +
-            "values (#{createTime}, #{courseId}, #{teacherId}, #{checkinNode})")
+    @Insert("insert into checkin_case(create_time, course_id, teacher_id, checkin_node, valid_time) " +
+            "values (#{createTime}, #{courseId}, #{teacherId}, #{checkinNode}, #{validTime})")
     void addCheckinCase(CheckinCase checkinCase);
 
     /**

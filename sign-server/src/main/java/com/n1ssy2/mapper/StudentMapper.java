@@ -109,4 +109,12 @@ public interface StudentMapper {
      * @return
      */
     Short getCheckinStatusByCheckinId(CheckinRecord checkinRecord);
+
+    /**
+     * 获取签到有效时长
+     * @param checkinId
+     * @return
+     */
+    @Select("select valid_time from checkin_case where checkin_id = #{checkinId}")
+    Integer getValidTimeByCheckinId(Integer checkinId);
 }

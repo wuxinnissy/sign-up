@@ -27,4 +27,5 @@ public class CheckinCase implements Serializable {
     private Timestamp createTime;
     private Integer checkinId;
     private String checkinNode;
+    private Integer validTime;
 }

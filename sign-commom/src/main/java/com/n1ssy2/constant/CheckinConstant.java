@@ -12,4 +12,5 @@ public class CheckinConstant {
     public static final Short STATUS_UNCHECKED = 0;
     public static final Short STATUS_LATE = 2;
 
+
 }

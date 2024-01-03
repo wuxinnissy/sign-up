@@ -99,7 +99,7 @@ public class StudentServiceImpl implements StudentService {
         Timestamp createTime = studentMapper.getCreateTimeByCheckinId(checkinId);
         Timestamp myTime = Timestamp.valueOf(LocalDateTime.now());
         Timestamp lateTime = new Timestamp(createTime.getTime() + (1 * 60 * 1000));//1min时效
-        Timestamp maxTime = new Timestamp(createTime.getTime() + (30 * 60 * 1000));//30min时效
+        Timestamp maxTime = new Timestamp(createTime.getTime() + (studentMapper.getValidTimeByCheckinId(checkinId) * 60 * 1000));//30min时效
 
         if (myTime.compareTo(maxTime) > 0) {//超时缺勤
             throw new BaseException(MessageConstant.CHECKIN_TIME_ERROR);

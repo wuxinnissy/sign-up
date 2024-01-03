@@ -53,4 +53,11 @@ public interface TeacherService {
      * @return
      */
     List<TeacherCheckinRecordVO> queryByCheckinId(Integer checkinId);
+
+    /**
+     * 教师课表导入
+     * @param file
+     * @return
+     */
+
 }

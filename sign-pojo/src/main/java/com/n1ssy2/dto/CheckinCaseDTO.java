@@ -29,4 +29,5 @@ public class CheckinCaseDTO implements Serializable {
     private String courseId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
+    private Integer validTime;
 }

@@ -136,6 +136,7 @@ INSERT INTO sign_up.student_course (student_id, course_id) VALUES ('006', '010')
 CREATE TABLE checkin_case (
     checkin_id INT AUTO_INCREMENT,
     create_time DATETIME,
+    valid_time INT,
     course_id VARCHAR(20),
     teacher_id VARCHAR(20),
     checkin_node VARCHAR(8),
@@ -146,7 +147,7 @@ CREATE TABLE checkin_case (
     FOREIGN KEY (course_id) REFERENCES course(course_id)
 )CHARACTER SET utf8;
 
-INSERT INTO checkin_case VALUES (1,'2023-12-22 20:33:13','001','001','m702HJT3');
+INSERT INTO checkin_case VALUES (1,'2023-12-22 20:33:13','10','001','001','m702HJT3');
 
 CREATE TABLE checkin_record (
     checkin_id INT AUTO_INCREMENT,

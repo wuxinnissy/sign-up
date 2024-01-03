@@ -48,4 +48,11 @@ public interface StudentService {
      * @param student
      */
     void regist(Student student);
+
+    /**
+     * 学生课表导入
+     * @param dataList
+     * @return
+     */
+    void setCourseByFile(List<Course> dataList);
 }

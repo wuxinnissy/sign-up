@@ -2,15 +2,14 @@ package com.n1ssy2.service.impl;
 
 import com.n1ssy2.constant.CheckinConstant;
 import com.n1ssy2.constant.MessageConstant;
+import com.n1ssy2.context.BaseContext;
 import com.n1ssy2.dto.CheckinRecordDTO;
 import com.n1ssy2.dto.StudentDTO;
-import com.n1ssy2.entity.CheckinRecord;
-import com.n1ssy2.entity.Course;
-import com.n1ssy2.entity.Student;
-import com.n1ssy2.entity.StudentCourse;
+import com.n1ssy2.entity.*;
 import com.n1ssy2.exception.AccountNotFoundException;
 import com.n1ssy2.exception.BaseException;
 import com.n1ssy2.mapper.StudentMapper;
+import com.n1ssy2.mapper.TeacherMapper;
 import com.n1ssy2.service.StudentService;
 import com.n1ssy2.vo.StudentCheckinRecordVO;
 import org.springframework.beans.BeanUtils;
@@ -36,6 +35,8 @@ import java.util.Objects;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private TeacherMapper teacherMapper;
 
     /**
      * 学生登录
@@ -182,5 +183,32 @@ public class StudentServiceImpl implements StudentService {
 
         //注册
         studentMapper.regist(student);
+    }
+
+    /**
+     * 学生课表导入
+     * @param dataList
+     * @return
+     */
+    public void setCourseByFile(List<Course> dataList){
+        dataList.forEach(data -> {
+            StudentCourse studentCourse = StudentCourse.builder()
+                    .studentId(BaseContext.getCurrentId())
+                    .courseId(data.getCourseId())
+                    .build();
+
+            //检查课程是否存在
+            Course course = teacherMapper.getCourseByCourseId(data.getCourseId());
+            if(course == null){
+                teacherMapper.addCourse(data);
+                studentMapper.addStudentCourse(studentCourse);
+            }else{
+                //检查教师是否有该课程
+                StudentCourse studentCourse1 = studentMapper.getStudentCourse(studentCourse);
+                if(studentCourse1 == null){
+                    studentMapper.addStudentCourse(studentCourse);
+                }
+            }
+        });
     }
 }

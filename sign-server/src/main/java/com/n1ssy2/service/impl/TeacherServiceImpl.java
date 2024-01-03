@@ -147,31 +147,10 @@ public class TeacherServiceImpl implements TeacherService {
                 caseVOS.add(checkinCaseVO);
             });
 
-
-
-//            //将签到实例对应的课程名字找出来
-//            System.out.println(cases.size());
-//            List<String> courseNames = teacherMapper.getCourseNamesByCourseId(cases);
-//            System.out.println(courseNames.size());
-//
-//            //新建返回类型然后将结果赋值
-//            List<CheckinCaseVO> caseVOS = new ArrayList<>();
-//            int size = cases.size();
-//            System.out.println(size);
-//            for (int i = 0; i < size; i++) {
-//                CheckinCaseVO checkinCaseVO = new CheckinCaseVO();
-//                BeanUtils.copyProperties(cases.get(i), checkinCaseVO);
-//                System.out.println(i);
-//                checkinCaseVO.setCourseName(courseNames.get(i));
-//                caseVOS.add(checkinCaseVO);
-//            }
-
             return caseVOS;
         }else{
             throw new BaseException(MessageConstant.CASE_NOT_FOUND);
         }
-
-
     }
 
     /**

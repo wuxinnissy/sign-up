@@ -111,4 +111,21 @@ public interface TeacherMapper {
      */
     @Select("select * from teacher_course where teacher_id = #{teacherId} and course_id = #{courseId}")
     TeacherCourse getTeacherCourse(TeacherCourse teacherCourse);
+
+    /**
+     * 查询老师信息
+     * @param teacherId
+     * @return
+     */
+    @Select("select * from teacher where teacher_id = #{teacherId}")
+    Teacher getTeacherByteacherId(String teacherId);
+
+    /**
+     * 添加注册信息
+     * @param teacher
+     * @return
+     */
+    @Insert("insert into teacher(teacher_id, teacher_name, password) values " +
+            "(#{teacherId}, #{teacherName}, #{password})")
+    void regist(Teacher teacher);
 }

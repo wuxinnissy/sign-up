@@ -223,4 +223,17 @@ public class TeacherController {
             return Result.error(MessageConstant.UNKNOWN_ERROR);
         }
     }
+
+    /**
+     * 注册
+     * @param teacher
+     * @return
+     */
+    @PostMapping("/regist")
+    @ApiOperation("教师注册")
+    public Result<String> regist(@RequestBody Teacher teacher){
+        log.info("教师注册：{}", teacher);
+        teacherService.regist(teacher);
+        return Result.success();
+    }
 }

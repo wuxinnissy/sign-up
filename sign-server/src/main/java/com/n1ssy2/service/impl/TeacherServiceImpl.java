@@ -209,4 +209,29 @@ public class TeacherServiceImpl implements TeacherService {
             }
         });
     }
+
+    /**
+     * 教师注册
+     * @param teacher
+     */
+    public void regist(Teacher teacher){
+        //检查工号重复
+        Teacher tea = teacherMapper.getTeacherByteacherId(teacher.getTeacherId());
+        if(tea != null){
+            throw new BaseException(MessageConstant.ACCOUNT_EXIST);
+        }
+
+        //检查密码是否大于6位
+        String password = teacher.getPassword();
+        if(password.length()<6){
+            throw new BaseException(MessageConstant.PASSWORD_TOO_SHORT);
+        }
+
+        //密码md5加密
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        teacher.setPassword(password);
+
+        //注册
+        teacherMapper.regist(teacher);
+    }
 }

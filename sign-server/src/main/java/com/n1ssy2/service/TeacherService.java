@@ -60,4 +60,10 @@ public interface TeacherService {
      * @return
      */
     void setCourseByFile(List<Course> dataList);
+
+    /**
+     * 教师注册
+     * @param teacher
+     */
+    void regist(Teacher teacher);
 }

@@ -1,13 +1,14 @@
 ### Database document
-> 2023-12-28 17:19:00
+> 2024-01-03 12:18:12
 #### checkin_case  
 NO | KEY | COLUMN | COMMENT | DATA_TYPE | NOTNULL | REMARK
 :---: | :---: | --- | --- | --- | :---: | ---
 1|PRI|checkin_id| |INT|Y|
 2| |create_time| |DATETIME|N|
-3| |course_id| |VARCHAR(20)|N|
-4| |teacher_id| |VARCHAR(20)|N|
-5| |checkin_node| |VARCHAR(8)|N|
+3| |valid_time| |INT|N|
+4| |course_id| |VARCHAR(20)|N|
+5| |teacher_id| |VARCHAR(20)|N|
+6| |checkin_node| |VARCHAR(8)|N|
 #### checkin_record  
 NO | KEY | COLUMN | COMMENT | DATA_TYPE | NOTNULL | REMARK
 :---: | :---: | --- | --- | --- | :---: | ---
@@ -31,7 +32,7 @@ NO | KEY | COLUMN | COMMENT | DATA_TYPE | NOTNULL | REMARK
 #### student_course  
 NO | KEY | COLUMN | COMMENT | DATA_TYPE | NOTNULL | REMARK
 :---: | :---: | --- | --- | --- | :---: | ---
-1|PRI|student_id| |VARCHAR(20)|Y|
+1| |student_id| |VARCHAR(20)|N|
 2| |course_id| |VARCHAR(20)|N|
 #### teacher  
 NO | KEY | COLUMN | COMMENT | DATA_TYPE | NOTNULL | REMARK
@@ -42,5 +43,5 @@ NO | KEY | COLUMN | COMMENT | DATA_TYPE | NOTNULL | REMARK
 #### teacher_course  
 NO | KEY | COLUMN | COMMENT | DATA_TYPE | NOTNULL | REMARK
 :---: | :---: | --- | --- | --- | :---: | ---
-1|PRI|teacher_id| |VARCHAR(20)|Y|
+1| |teacher_id| |VARCHAR(20)|N|
 2| |course_id| |VARCHAR(20)|N|

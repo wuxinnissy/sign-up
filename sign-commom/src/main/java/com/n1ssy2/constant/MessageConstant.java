@@ -22,4 +22,6 @@ public class MessageConstant {
     public static final String CHECKIN_TIME_ERROR = "未在规定时间考勤";
     public static final String JWT_ERROR = "JWT令牌解析失败";
     public static final String CHECKINED = "请勿重复签到";
+    public static final String ACCOUNT_EXIST = "该工号已存在";
+    public static final String PASSWORD_TOO_SHORT = "密码不得少于6位";
 }

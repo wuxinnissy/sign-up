@@ -104,6 +104,9 @@ public class TeacherServiceImpl implements TeacherService {
 
         checkinCase.setCheckinNode(checkinNode);
         checkinCase.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
+        if(checkinCase.getValidTime() == null){
+            checkinCase.setValidTime(30);
+        }
 
         teacherMapper.addCheckinCase(checkinCase);
         Integer checkinId = teacherMapper.getCheckinId(checkinNode);
